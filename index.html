@@ -1,0 +1,1949 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DevMaster - Learn Web Development from Zero</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/atom-one-dark.min.css">
+    <style>
+        
+        :root {
+            --primary: #FFD700;
+            --primary-dark: #D4AF37;
+            --secondary: #000000;
+            --accent: #C0C0C0;
+            --success: #00FF00;
+            --warning: #FFA500;
+            --danger: #FF0000;
+            --light: #1a1a1a;
+            --dark: #000000;
+            --gray: #666666;
+            --dark-gray: #333333;
+            --light-gray: #999999;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --shadow: 0 10px 30px rgba(255, 215, 0, 0.1);
+            --radius: 8px;
+            --glow: 0 0 15px rgba(255, 215, 0, 0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 80px;
+        }
+
+        body {
+            background-color: var(--secondary);
+            color: #f0f0f0;
+            line-height: 1.7;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(255, 215, 0, 0.05) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(255, 215, 0, 0.05) 0%, transparent 20%);
+        }
+
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        section {
+            padding: 100px 0;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 70px;
+            position: relative;
+        }
+
+        .section-header::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(to right, transparent, var(--primary), transparent);
+        }
+
+        .section-title {
+            font-size: 2.8rem;
+            font-weight: 800;
+            background: linear-gradient(to right, var(--primary), var(--primary-dark));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 15px;
+            line-height: 1.2;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .section-subtitle {
+            font-size: 1.2rem;
+            color: var(--accent);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* Button Styles */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 14px 32px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: var(--secondary);
+            border-radius: var(--radius);
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.05rem;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+            box-shadow: var(--shadow);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            letter-spacing: 0.5px;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: var(--transition);
+            z-index: -1;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--glow);
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        .btn:active {
+            transform: translateY(-1px);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            box-shadow: none;
+        }
+
+        .btn-outline:hover {
+            background: var(--primary);
+            color: var(--secondary);
+        }
+
+        .btn-small {
+            padding: 10px 20px;
+            font-size: 0.9rem;
+        }
+
+        .btn-large {
+            padding: 18px 40px;
+            font-size: 1.2rem;
+        }
+
+        .btn-full {
+            width: 100%;
+        }
+
+        /* Header */
+        header {
+            background-color: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255, 215, 0, 0.2);
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .logo span {
+            color: white;
+        }
+
+        .logo i {
+            color: var(--primary);
+            font-size: 2.2rem;
+            text-shadow: var(--glow);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 35px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #f0f0f0;
+            font-weight: 600;
+            font-size: 1.05rem;
+            transition: var(--transition);
+            position: relative;
+            padding: 5px 0;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: var(--transition);
+            border-radius: 1px;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--primary);
+            cursor: pointer;
+            padding: 5px;
+            border-radius: 4px;
+            transition: var(--transition);
+        }
+
+        .mobile-menu-btn:hover {
+            background-color: rgba(255, 215, 0, 0.1);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding-top: 180px;
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.9) 0%, rgba(26, 26, 26, 0.9) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 70%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 215, 0, 0.05) 0%, transparent 70%);
+            transform: rotate(15deg);
+            z-index: 0;
+        }
+
+        .hero-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-text h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 25px;
+            color: white;
+        }
+
+        .hero-text h1 span {
+            background: linear-gradient(to right, var(--primary), var(--primary-dark));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: var(--glow);
+        }
+
+        .hero-text p {
+            font-size: 1.2rem;
+            color: var(--accent);
+            margin-bottom: 40px;
+            line-height: 1.8;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .hero-visual {
+            position: relative;
+        }
+
+        .code-window {
+            background-color: #0a0a0a;
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transform: perspective(1000px) rotateY(-5deg);
+            transition: var(--transition);
+            border: 1px solid rgba(255, 215, 0, 0.2);
+        }
+
+        .code-window:hover {
+            transform: perspective(1000px) rotateY(0deg);
+            box-shadow: var(--glow);
+        }
+
+        .window-header {
+            background-color: #1a1a1a;
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-bottom: 1px solid rgba(255, 215, 0, 0.2);
+        }
+
+        .window-dot {
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+        }
+
+        .dot-red { background-color: #ff5f56; }
+        .dot-yellow { background-color: #ffbd2e; }
+        .dot-green { background-color: #27ca3f; }
+
+        .window-title {
+            color: var(--primary);
+            font-size: 0.9rem;
+            margin-left: 10px;
+            font-weight: 600;
+        }
+
+        .window-body {
+            padding: 25px;
+            font-family: 'Courier New', monospace;
+            color: #d4d4d4;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            background-color: #0a0a0a;
+        }
+
+        .code-comment {
+            color: #6a9955;
+        }
+
+        .code-tag {
+            color: #569cd6;
+        }
+
+        .code-attr {
+            color: #9cdcfe;
+        }
+
+        .code-value {
+            color: #ce9178;
+        }
+
+        /* Learning Path */
+        .learning-path {
+            background-color: var(--light);
+            position: relative;
+        }
+
+        .path-steps {
+            display: flex;
+            flex-direction: column;
+            gap: 50px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .path-step {
+            display: grid;
+            grid-template-columns: 100px 1fr;
+            gap: 30px;
+            align-items: center;
+            padding: 30px;
+            background-color: rgba(255, 215, 0, 0.05);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            position: relative;
+            border: 1px solid rgba(255, 215, 0, 0.1);
+        }
+
+        .path-step:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--glow);
+            border-color: rgba(255, 215, 0, 0.3);
+        }
+
+        .step-number {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--secondary);
+            box-shadow: 0 10px 20px rgba(255, 215, 0, 0.2);
+        }
+
+        .step-content h3 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            color: white;
+        }
+
+        .step-content p {
+            color: var(--accent);
+            margin-bottom: 20px;
+        }
+
+        .step-tags {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .tag {
+            padding: 6px 15px;
+            background-color: rgba(255, 215, 0, 0.1);
+            color: var(--primary);
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            border: 1px solid rgba(255, 215, 0, 0.2);
+        }
+
+        /* Interactive Playground */
+        .playground {
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.9) 0%, rgba(26, 26, 26, 0.9) 100%);
+        }
+
+        .playground-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+        }
+
+        @media (max-width: 992px) {
+            .playground-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .code-panel {
+            background-color: #0a0a0a;
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            border: 1px solid rgba(255, 215, 0, 0.2);
+        }
+
+        .panel-header {
+            background-color: #1a1a1a;
+            padding: 18px 25px;
+            color: var(--primary);
+            font-weight: 600;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(255, 215, 0, 0.2);
+        }
+
+        .code-tabs {
+            display: flex;
+            gap: 5px;
+        }
+
+        .code-tab {
+            padding: 8px 20px;
+            background-color: rgba(255, 215, 0, 0.1);
+            border: 1px solid rgba(255, 215, 0, 0.2);
+            color: var(--accent);
+            border-radius: 5px 5px 0 0;
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .code-tab.active {
+            background-color: rgba(255, 215, 0, 0.2);
+            color: var(--primary);
+            border-bottom-color: transparent;
+        }
+
+        .code-tab:hover:not(.active) {
+            background-color: rgba(255, 215, 0, 0.15);
+        }
+
+        .code-editor {
+            height: 400px;
+            overflow: auto;
+            background-color: #0a0a0a;
+            padding: 20px;
+        }
+
+        .code-area {
+            width: 100%;
+            height: 100%;
+            background-color: transparent;
+            color: #d4d4d4;
+            border: none;
+            font-family: 'Courier New', monospace;
+            font-size: 1rem;
+            line-height: 1.6;
+            resize: none;
+            outline: none;
+        }
+
+        .output-panel {
+            background-color: #0a0a0a;
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            display: flex;
+            flex-direction: column;
+            border: 1px solid rgba(255, 215, 0, 0.2);
+        }
+
+        .output-header {
+            background-color: #1a1a1a;
+            padding: 18px 25px;
+            color: var(--primary);
+            font-weight: 600;
+            border-bottom: 1px solid rgba(255, 215, 0, 0.2);
+        }
+
+        .output-frame {
+            flex: 1;
+            border: none;
+            background-color: white;
+        }
+
+        .playground-controls {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        /* Course Modules */
+        .modules {
+            background-color: var(--light);
+        }
+
+        .modules-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+        }
+
+        .module-card {
+            background-color: rgba(255, 215, 0, 0.05);
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            border: 1px solid rgba(255, 215, 0, 0.1);
+        }
+
+        .module-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--glow);
+            border-color: rgba(255, 215, 0, 0.3);
+        }
+
+        .module-header {
+            padding: 30px 30px 20px;
+            border-bottom: 1px solid rgba(255, 215, 0, 0.2);
+        }
+
+        .module-icon {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            color: var(--secondary);
+            margin-bottom: 20px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .html-icon {
+            background: linear-gradient(135deg, #e34c26, #f06529);
+        }
+
+        .css-icon {
+            background: linear-gradient(135deg, #264de4, #2965f1);
+        }
+
+        .js-icon {
+            background: linear-gradient(135deg, #f7df1e, #d4bb1d);
+        }
+
+        .module-header h3 {
+            font-size: 1.6rem;
+            margin-bottom: 10px;
+            color: white;
+        }
+
+        .module-header p {
+            color: var(--accent);
+        }
+
+        .module-body {
+            padding: 25px 30px;
+            flex: 1;
+        }
+
+        .module-topics {
+            list-style: none;
+        }
+
+        .module-topics li {
+            padding: 10px 0;
+            border-bottom: 1px dashed rgba(255, 215, 0, 0.2);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .module-topics li:last-child {
+            border-bottom: none;
+        }
+
+        .module-topics i {
+            color: var(--primary);
+        }
+
+        .module-footer {
+            padding: 0 30px 30px;
+        }
+
+        .progress-container {
+            margin-bottom: 20px;
+        }
+
+        .progress-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--accent);
+        }
+
+        .progress-bar {
+            height: 8px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            border-radius: 4px;
+            transition: width 0.5s ease;
+        }
+
+        .html-progress {
+            background: linear-gradient(to right, #e34c26, #f06529);
+        }
+
+        .css-progress {
+            background: linear-gradient(to right, #264de4, #2965f1);
+        }
+
+        .js-progress {
+            background: linear-gradient(to right, #f7df1e, #d4bb1d);
+        }
+
+        /* Quizzes */
+        .quizzes {
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.9) 0%, rgba(26, 26, 26, 0.9) 100%);
+        }
+
+        .quiz-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: rgba(255, 215, 0, 0.05);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            border: 1px solid rgba(255, 215, 0, 0.2);
+        }
+
+        .quiz-header {
+            padding: 30px;
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.2), rgba(212, 175, 55, 0.2));
+            color: var(--primary);
+            text-align: center;
+            border-bottom: 1px solid rgba(255, 215, 0, 0.2);
+        }
+
+        .quiz-header h3 {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+        }
+
+        .quiz-body {
+            padding: 40px;
+        }
+
+        .quiz-question {
+            margin-bottom: 40px;
+        }
+
+        .quiz-question h4 {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            color: white;
+        }
+
+        .quiz-options {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .quiz-option {
+            padding: 15px 20px;
+            background-color: rgba(255, 255, 255, 0.05);
+            border: 2px solid rgba(255, 215, 0, 0.2);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .quiz-option:hover {
+            background-color: rgba(255, 215, 0, 0.1);
+            border-color: rgba(255, 215, 0, 0.4);
+        }
+
+        .quiz-option.selected {
+            border-color: var(--primary);
+            background-color: rgba(255, 215, 0, 0.15);
+        }
+
+        .quiz-option.correct {
+            border-color: var(--success);
+            background-color: rgba(0, 255, 0, 0.1);
+        }
+
+        .quiz-option.incorrect {
+            border-color: var(--danger);
+            background-color: rgba(255, 0, 0, 0.1);
+        }
+
+        .option-checkbox {
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            border: 2px solid rgba(255, 215, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            transition: var(--transition);
+        }
+
+        .quiz-option.selected .option-checkbox {
+            border-color: var(--primary);
+            background-color: var(--primary);
+        }
+
+        .quiz-option.selected .option-checkbox::after {
+            content: '✓';
+            color: var(--secondary);
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        .quiz-footer {
+            padding: 0 40px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .quiz-result {
+            display: none;
+            text-align: center;
+            padding: 30px;
+        }
+
+        .result-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+        }
+
+        .success-icon {
+            color: var(--success);
+        }
+
+        .failure-icon {
+            color: var(--danger);
+        }
+
+        /* Achievements */
+        .achievements {
+            background-color: var(--light);
+        }
+
+        .achievement-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .achievement-card {
+            background-color: rgba(255, 215, 0, 0.05);
+            border-radius: var(--radius);
+            padding: 30px;
+            text-align: center;
+            border: 1px solid rgba(255, 215, 0, 0.1);
+            transition: var(--transition);
+        }
+
+        .achievement-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--glow);
+            border-color: rgba(255, 215, 0, 0.3);
+        }
+
+        .achievement-card.locked {
+            opacity: 0.5;
+            filter: grayscale(0.8);
+        }
+
+        .achievement-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            color: var(--primary);
+        }
+
+        .achievement-card.locked .achievement-icon {
+            color: var(--gray);
+        }
+
+        .achievement-card h3 {
+            margin-bottom: 10px;
+            color: white;
+        }
+
+        .achievement-card p {
+            color: var(--accent);
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+        }
+
+ 
+        footer {
+            background-color: #000000;
+            color: #f0f0f0;
+            padding: 80px 0 30px;
+            border-top: 1px solid rgba(255, 215, 0, 0.2);
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 50px;
+            margin-bottom: 60px;
+        }
+
+        .footer-column h3 {
+            font-size: 1.4rem;
+            margin-bottom: 25px;
+            color: var(--primary);
+        }
+
+        .footer-column p {
+            color: var(--accent);
+            margin-bottom: 25px;
+            line-height: 1.8;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 15px;
+        }
+
+        .footer-links a {
+            color: var(--accent);
+            text-decoration: none;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary);
+            padding-left: 5px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-link {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: rgba(255, 215, 0, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            text-decoration: none;
+            transition: var(--transition);
+            border: 1px solid rgba(255, 215, 0, 0.2);
+        }
+
+        .social-link:hover {
+            background-color: var(--primary);
+            color: var(--secondary);
+            transform: translateY(-3px);
+            box-shadow: var(--glow);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 215, 0, 0.2);
+            color: var(--accent);
+            font-size: 0.9rem;
+        }
+
+       
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background-color: #0a0a0a;
+            border-radius: var(--radius);
+            padding: 40px;
+            max-width: 500px;
+            width: 90%;
+            box-shadow: var(--glow);
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            position: relative;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(255, 215, 0, 0.2);
+        }
+
+        .modal-header h3 {
+            color: var(--primary);
+            font-size: 1.5rem;
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            color: var(--accent);
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: var(--transition);
+            padding: 5px;
+            border-radius: 4px;
+        }
+
+        .close-modal:hover {
+            color: var(--primary);
+            background-color: rgba(255, 215, 0, 0.1);
+        }
+
+        .modal-body {
+            margin-bottom: 30px;
+        }
+
+        .modal-footer {
+            display: flex;
+            justify-content: flex-end;
+            gap: 15px;
+        }
+
+      
+        .notification {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #0a0a0a;
+            border-left: 4px solid var(--primary);
+            padding: 15px 20px;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            display: none;
+            align-items: center;
+            gap: 15px;
+            z-index: 3000;
+            max-width: 400px;
+            border: 1px solid rgba(255, 215, 0, 0.2);
+        }
+
+        .notification.show {
+            display: flex;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        .notification-icon {
+            color: var(--primary);
+            font-size: 1.5rem;
+        }
+
+        .notification-content h4 {
+            color: white;
+            margin-bottom: 5px;
+        }
+
+        .notification-content p {
+            color: var(--accent);
+            font-size: 0.9rem;
+        }
+
+   
+        .progress-tracker {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background-color: rgba(0, 0, 0, 0.9);
+            border-radius: var(--radius);
+            padding: 20px;
+            box-shadow: var(--shadow);
+            width: 300px;
+            z-index: 1000;
+            border: 1px solid rgba(255, 215, 0, 0.2);
+            backdrop-filter: blur(10px);
+            display: none;
+        }
+
+        .progress-tracker.show {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(255, 215, 0, 0.2);
+        }
+
+        .progress-title {
+            font-weight: 600;
+            color: var(--primary);
+            font-size: 1.1rem;
+        }
+
+        .close-progress {
+            background: none;
+            border: none;
+            color: var(--accent);
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: var(--transition);
+            padding: 5px;
+            border-radius: 4px;
+        }
+
+        .close-progress:hover {
+            color: var(--primary);
+            background-color: rgba(255, 215, 0, 0.1);
+        }
+
+        .progress-item {
+            margin-bottom: 15px;
+        }
+
+        .progress-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .progress-item-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+            font-size: 0.9rem;
+        }
+
+        .progress-item-name {
+            color: var(--accent);
+        }
+
+        .progress-item-value {
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .progress-item-bar {
+            height: 6px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .progress-item-fill {
+            height: 100%;
+            border-radius: 3px;
+            transition: width 0.5s ease;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 992px) {
+            .hero-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background-color: rgba(0, 0, 0, 0.95);
+                flex-direction: column;
+                padding: 20px;
+                gap: 20px;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+                border-top: 1px solid rgba(255, 215, 0, 0.2);
+            }
+            
+            .nav-links.active {
+                display: flex;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .hero-text h1 {
+                font-size: 2.8rem;
+            }
+            
+            .section-title {
+                font-size: 2.3rem;
+            }
+            
+            .path-step {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            
+            .step-number {
+                margin: 0 auto;
+            }
+            
+            .progress-tracker {
+                width: calc(100% - 40px);
+                max-width: 300px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero-buttons {
+                justify-content: center;
+            }
+            
+            .modules-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            section {
+                padding: 70px 0;
+            }
+            
+            .playground-controls {
+                flex-direction: column;
+            }
+            
+            .playground-controls > div {
+                width: 100%;
+            }
+            
+            .btn-full-mobile {
+                width: 100%;
+            }
+            
+            .quiz-footer {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .quiz-footer > div {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+  
+    <header>
+        <div class="container">
+            <nav class="navbar">
+                <a href="#" class="logo">
+                    <i class="fas fa-crown"></i>
+                    Dev<span>Master</span>
+                </a>
+                
+                <ul class="nav-links" id="navLinks">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#path">Learning Path</a></li>
+                    <li><a href="#playground">Playground</a></li>
+                    <li><a href="#modules">Courses</a></li>
+                    <li><a href="#quiz">Quiz</a></li>
+                    <li><a href="#achievements">Achievements</a></li>
+                    <li><a href="#" class="btn btn-outline btn-small" id="loginBtn">Login</a></li>
+                </ul>
+                
+                <div>
+                    <button class="btn btn-small" id="showProgressBtn">
+                        <i class="fas fa-chart-line"></i> Progress
+                    </button>
+                    <button class="mobile-menu-btn" id="mobileMenuBtn">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <div class="progress-tracker" id="progressTracker">
+        <div class="progress-header">
+            <div class="progress-title">Your Learning Progress</div>
+            <button class="close-progress" id="closeProgress">&times;</button>
+        </div>
+        
+        <div class="progress-item">
+            <div class="progress-item-label">
+                <span class="progress-item-name">HTML</span>
+                <span class="progress-item-value" id="htmlProgressValue">0%</span>
+            </div>
+            <div class="progress-item-bar">
+                <div class="progress-item-fill html-progress" id="htmlProgressBar" style="width: 0%"></div>
+            </div>
+        </div>
+        
+        <div class="progress-item">
+            <div class="progress-item-label">
+                <span class="progress-item-name">CSS</span>
+                <span class="progress-item-value" id="cssProgressValue">0%</span>
+            </div>
+            <div class="progress-item-bar">
+                <div class="progress-item-fill css-progress" id="cssProgressBar" style="width: 0%"></div>
+            </div>
+        </div>
+        
+        <div class="progress-item">
+            <div class="progress-item-label">
+                <span class="progress-item-name">JavaScript</span>
+                <span class="progress-item-value" id="jsProgressValue">0%</span>
+            </div>
+            <div class="progress-item-bar">
+                <div class="progress-item-fill js-progress" id="jsProgressBar" style="width: 0%"></div>
+            </div>
+        </div>
+        
+        <div class="progress-item">
+            <div class="progress-item-label">
+                <span class="progress-item-name">Overall</span>
+                <span class="progress-item-value" id="overallProgressValue">0%</span>
+            </div>
+            <div class="progress-item-bar">
+                <div class="progress-item-fill" id="overallProgressBar" style="width: 0%; background: linear-gradient(to right, var(--primary), var(--primary-dark));"></div>
+            </div>
+        </div>
+    </div>
+
+    <section class="hero" id="home">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h1>Master <span>Web Development</span> From Zero</h1>
+                    <p>Learn HTML, CSS, and JavaScript with our interactive platform. Build real projects, track your progress, and become a professional web developer.</p>
+                    <div class="hero-buttons">
+                        <a href="#path" class="btn btn-large">
+                            <i class="fas fa-rocket"></i> Start Learning
+                        </a>
+                        <a href="#playground" class="btn btn-outline btn-large">
+                            <i class="fas fa-code"></i> Try Playground
+                        </a>
+                    </div>
+                </div>
+                <div class="hero-visual">
+                    <div class="code-window">
+                        <div class="window-header">
+                            <div class="window-dot dot-red"></div>
+                            <div class="window-dot dot-yellow"></div>
+                            <div class="window-dot dot-green"></div>
+                            <div class="window-title">first-website.html</div>
+                        </div>
+                        <div class="window-body">
+                            <div><span class="code-tag">&lt;!DOCTYPE html&gt;</span></div>
+                            <div><span class="code-tag">&lt;html</span> <span class="code-attr">lang</span>=<span class="code-value">"en"</span><span class="code-tag">&gt;</span></div>
+                            <div>&nbsp;&nbsp;<span class="code-tag">&lt;head&gt;</span></div>
+                            <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-tag">&lt;title&gt;</span>My First Website<span class="code-tag">&lt;/title&gt;</span></div>
+                            <div>&nbsp;&nbsp;<span class="code-tag">&lt;/head&gt;</span></div>
+                            <div>&nbsp;&nbsp;<span class="code-tag">&lt;body&gt;</span></div>
+                            <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-tag">&lt;h1&gt;</span>Welcome to DevMaster<span class="code-tag">&lt;/h1&gt;</span></div>
+                            <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-tag">&lt;p&gt;</span>Start your web development journey.<span class="code-tag">&lt;/p&gt;</span></div>
+                            <div>&nbsp;&nbsp;<span class="code-tag">&lt;/body&gt;</span></div>
+                            <div><span class="code-tag">&lt;/html&gt;</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="learning-path" id="path">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Step-by-Step Learning Path</h2>
+                <p class="section-subtitle">Follow our structured curriculum designed for absolute beginners.</p>
+            </div>
+            
+            <div class="path-steps">
+                <div class="path-step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h3>HTML Fundamentals</h3>
+                        <p>Learn the building blocks of the web. Create structured content with headings, paragraphs, lists, links, images, and forms.</p>
+                        <div class="step-tags">
+                            <span class="tag">Structure</span>
+                            <span class="tag">Semantics</span>
+                            <span class="tag">Forms</span>
+                            <span class="tag">Accessibility</span>
+                        </div>
+                        <button class="btn btn-small" style="margin-top: 15px;" id="startHtmlPathBtn">
+                            <i class="fas fa-play"></i> Start HTML
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="path-step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h3>CSS Styling & Layout</h3>
+                        <p>Make your websites beautiful and responsive. Learn colors, typography, Flexbox, Grid, animations, and responsive design.</p>
+                        <div class="step-tags">
+                            <span class="tag">Flexbox</span>
+                            <span class="tag">Grid</span>
+                            <span class="tag">Responsive</span>
+                            <span class="tag">Animations</span>
+                        </div>
+                        <button class="btn btn-small" style="margin-top: 15px;" id="startCssPathBtn">
+                            <i class="fas fa-play"></i> Start CSS
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="path-step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h3>JavaScript Programming</h3>
+                        <p>Add interactivity to your websites. Master variables, functions, DOM manipulation, events, APIs, and modern ES6+ features.</p>
+                        <div class="step-tags">
+                            <span class="tag">DOM</span>
+                            <span class="tag">Events</span>
+                            <span class="tag">APIs</span>
+                            <span class="tag">ES6+</span>
+                        </div>
+                        <button class="btn btn-small" style="margin-top: 15px;" id="startJsPathBtn">
+                            <i class="fas fa-play"></i> Start JavaScript
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    
+    <section class="playground" id="playground">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Interactive Playground</h2>
+                <p class="section-subtitle">Practice coding right in your browser. Write HTML, CSS, and JavaScript and see the results instantly.</p>
+            </div>
+            
+            <div class="playground-container">
+                <div class="code-panel">
+                    <div class="panel-header">
+                        <span>Code Editor</span>
+                        <div class="code-tabs">
+                            <button class="code-tab active" data-tab="html">HTML</button>
+                            <button class="code-tab" data-tab="css">CSS</button>
+                            <button class="code-tab" data-tab="js">JavaScript</button>
+                        </div>
+                    </div>
+                    <div class="code-editor">
+                        <textarea id="htmlEditor" class="code-area active">&lt;!DOCTYPE html&gt;
+</textarea>
+                    </div>
+                </div>
+                
+                <div class="output-panel">
+                    <div class="output-header">Live Preview</div>
+                    <iframe id="outputFrame" class="output-frame"></iframe>
+                </div>
+            </div>
+            
+            <div class="playground-controls">
+                <div>
+                    <button id="runCodeBtn" class="btn btn-full-mobile">
+                        <i class="fas fa-play"></i> Run Code
+                    </button>
+                    <button id="resetCodeBtn" class="btn btn-outline btn-full-mobile" style="margin-top: 10px;">
+                        <i class="fas fa-redo"></i> Reset Code
+                    </button>
+                </div>
+                <div>
+                    <button id="saveCodeBtn" class="btn btn-outline btn-full-mobile">
+                        <i class="fas fa-save"></i> Save Code
+                    </button>
+                    <button id="loadCodeBtn" class="btn btn-outline btn-full-mobile" style="margin-top: 10px;">
+                        <i class="fas fa-folder-open"></i> Load Saved
+                    </button>
+                </div>
+                <div>
+                    <button id="downloadCodeBtn" class="btn btn-outline btn-full-mobile">
+                        <i class="fas fa-download"></i> Download Code
+                    </button>
+                    <button id="shareCodeBtn" class="btn btn-outline btn-full-mobile" style="margin-top: 10px;">
+                        <i class="fas fa-share-alt"></i> Share Code
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="modules" id="modules">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Course Modules</h2>
+                <p class="section-subtitle">Comprehensive courses covering everything from basics to advanced topics.</p>
+            </div>
+            
+            <div class="modules-grid">
+                
+                <div class="module-card">
+                    <div class="module-header">
+                        <div class="module-icon html-icon">
+                            <i class="fab fa-html5"></i>
+                        </div>
+                        <h3>HTML Mastery</h3>
+                        <p>Learn to structure web content semantically</p>
+                    </div>
+                    <div class="module-body">
+                        <ul class="module-topics">
+                            <li><i class="fas fa-check"></i> HTML Document Structure</li>
+                            <li><i class="fas fa-check"></i> Text Elements & Headings</li>
+                            <li><i class="fas fa-check"></i> Links, Images & Media</li>
+                            <li><i class="fas fa-check"></i> Forms & Input Elements</li>
+                            <li><i class="fas fa-check"></i> Semantic HTML5 Elements</li>
+                            <li><i class="fas fa-check"></i> Tables & Lists</li>
+                            <li><i class="fas fa-check"></i> Accessibility Best Practices</li>
+                        </ul>
+                    </div>
+                    <div class="module-footer">
+                        <div class="progress-container">
+                            <div class="progress-label">
+                                <span>Your Progress</span>
+                                <span id="moduleHtmlProgressValue">0%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill html-progress" id="moduleHtmlProgressBar"></div>
+                            </div>
+                        </div>
+                        <button class="btn btn-full" id="startHtmlModuleBtn">
+                            <i class="fas fa-play-circle"></i> Start Learning
+                        </button>
+                    </div>
+                </div>
+                
+                
+                <div class="module-card">
+                    <div class="module-header">
+                        <div class="module-icon css-icon">
+                            <i class="fab fa-css3-alt"></i>
+                        </div>
+                        <h3>CSS Styling</h3>
+                        <p>Create beautiful, responsive designs</p>
+                    </div>
+                    <div class="module-body">
+                        <ul class="module-topics">
+                            <li><i class="fas fa-check"></i> Selectors & Specificity</li>
+                            <li><i class="fas fa-check"></i> Box Model & Positioning</li>
+                            <li><i class="fas fa-check"></i> Flexbox & Grid Layouts</li>
+                            <li><i class="fas fa-check"></i> Responsive Design</li>
+                            <li><i class="fas fa-check"></i> Transitions & Animations</li>
+                            <li><i class="fas fa-check"></i> Variables & Custom Properties</li>
+                            <li><i class="fas fa-check"></i> CSS Frameworks Overview</li>
+                        </ul>
+                    </div>
+                    <div class="module-footer">
+                        <div class="progress-container">
+                            <div class="progress-label">
+                                <span>Your Progress</span>
+                                <span id="moduleCssProgressValue">0%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill css-progress" id="moduleCssProgressBar"></div>
+                            </div>
+                        </div>
+                        <button class="btn btn-full" id="startCssModuleBtn">
+                            <i class="fas fa-play-circle"></i> Start Learning
+                        </button>
+                    </div>
+                </div>
+                
+                
+                <div class="module-card">
+                    <div class="module-header">
+                        <div class="module-icon js-icon">
+                            <i class="fab fa-js"></i>
+                        </div>
+                        <h3>JavaScript Programming</h3>
+                        <p>Add interactivity and dynamic behavior</p>
+                    </div>
+                    <div class="module-body">
+                        <ul class="module-topics">
+                            <li><i class="fas fa-check"></i> Variables & Data Types</li>
+                            <li><i class="fas fa-check"></i> Functions & Scope</li>
+                            <li><i class="fas fa-check"></i> DOM Manipulation</li>
+                            <li><i class="fas fa-check"></i> Events & Event Listeners</li>
+                            <li><i class="fas fa-check"></i> ES6+ Features</li>
+                            <li><i class="fas fa-check"></i> Async Programming</li>
+                            <li><i class="fas fa-check"></i> Working with APIs</li>
+                        </ul>
+                    </div>
+                    <div class="module-footer">
+                        <div class="progress-container">
+                            <div class="progress-label">
+                                <span>Your Progress</span>
+                                <span id="moduleJsProgressValue">0%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill js-progress" id="moduleJsProgressBar"></div>
+                            </div>
+                        </div>
+                        <button class="btn btn-full" id="startJsModuleBtn">
+                            <i class="fas fa-play-circle"></i> Start Learning
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    
+    <section class="quizzes" id="quiz">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Test Your Knowledge</h2>
+                <p class="section-subtitle">Take our interactive quiz to check your understanding of web development concepts.</p>
+            </div>
+            
+            <div class="quiz-container">
+                <div class="quiz-header">
+                    <h3>Web Development Quiz</h3>
+                    <p>Answer the following questions to test your knowledge</p>
+                </div>
+                
+                <div class="quiz-body" id="quizBody">
+                    <div class="quiz-question" id="question1">
+                        <h4>1. What does HTML stand for?</h4>
+                        <div class="quiz-options">
+                            <div class="quiz-option" data-correct="true">
+                                <div class="option-checkbox"></div>
+                                <span>HyperText Markup Language</span>
+                            </div>
+                            <div class="quiz-option">
+                                <div class="option-checkbox"></div>
+                                <span>HighTech Modern Language</span>
+                            </div>
+                            <div class="quiz-option">
+                                <div class="option-checkbox"></div>
+                                <span>HyperTransfer Markup Language</span>
+                            </div>
+                            <div class="quiz-option">
+                                <div class="option-checkbox"></div>
+                                <span>Home Tool Markup Language</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="quiz-question" id="question2">
+                        <h4>2. Which CSS property is used to change the text color?</h4>
+                        <div class="quiz-options">
+                            <div class="quiz-option">
+                                <div class="option-checkbox"></div>
+                                <span>text-color</span>
+                            </div>
+                            <div class="quiz-option" data-correct="true">
+                                <div class="option-checkbox"></div>
+                                <span>color</span>
+                            </div>
+                            <div class="quiz-option">
+                                <div class="option-checkbox"></div>
+                                <span>font-color</span>
+                            </div>
+                            <div class="quiz-option">
+                                <div class="option-checkbox"></div>
+                                <span>background-color</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="quiz-question" id="question3">
+                        <h4>3. In JavaScript, which keyword is used to declare a variable?</h4>
+                        <div class="quiz-options">
+                            <div class="quiz-option">
+                                <div class="option-checkbox"></div>
+                                <span>var</span>
+                            </div>
+                            <div class="quiz-option">
+                                <div class="option-checkbox"></div>
+                                <span>let</span>
+                            </div>
+                            <div class="quiz-option">
+                                <div class="option-checkbox"></div>
+                                <span>const</span>
+                            </div>
+                            <div class="quiz-option" data-correct="true">
+                                <div class="option-checkbox"></div>
+                                <span>All of the above</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="quiz-result" id="quizResult">
+                        <div class="result-icon success-icon" id="resultIcon">
+                            <i class="fas fa-trophy"></i>
+                        </div>
+                        <h3 id="resultTitle">Quiz Completed!</h3>
+                        <p id="resultMessage">You scored <span id="scoreValue">0</span> out of 3</p>
+                        <button class="btn" id="retryQuizBtn">
+                            <i class="fas fa-redo"></i> Try Again
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="quiz-footer">
+                    <div>
+                        <span id="questionCount">Question 1 of 3</span>
+                    </div>
+                    <div>
+                        <button class="btn btn-outline" id="prevQuestionBtn" disabled>
+                            <i class="fas fa-arrow-left"></i> Previous
+                        </button>
+                        <button class="btn" id="nextQuestionBtn">
+                            Next <i class="fas fa-arrow-right"></i>
+                        </button>
+                        <button class="btn" id="submitQuizBtn" style="display: none;">
+                            <i class="fas fa-paper-plane"></i> Submit Quiz
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+   
+    <section class="achievements" id="achievements">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Your Achievements</h2>
+                <p class="section-subtitle">Unlock achievements as you progress through the courses.</p>
+            </div>
+            
+            <div class="achievement-grid">
+                <div class="achievement-card" id="htmlStarterAchievement">
+                    <div class="achievement-icon">
+                        <i class="fab fa-html5"></i>
+                    </div>
+                    <h3>HTML Starter</h3>
+                    <p>Complete your first HTML lesson</p>
+                    <button class="btn btn-small btn-full claim-btn" disabled>Locked</button>
+                </div>
+                
+                <div class="achievement-card" id="cssArtistAchievement">
+                    <div class="achievement-icon">
+                        <i class="fab fa-css3-alt"></i>
+                    </div>
+                    <h3>CSS Artist</h3>
+                    <p>Style your first webpage with CSS</p>
+                    <button class="btn btn-small btn-full claim-btn" disabled>Locked</button>
+                </div>
+                
+                <div class="achievement-card" id="jsWizardAchievement">
+                    <div class="achievement-icon">
+                        <i class="fab fa-js"></i>
+                    </div>
+                    <h3>JavaScript Wizard</h3>
+                    <p>Write your first JavaScript function</p>
+                    <button class="btn btn-small btn-full claim-btn" disabled>Locked</button>
+                </div>
+                
+                <div class="achievement-card" id="quizMasterAchievement">
+                    <div class="achievement-icon">
+                        <i class="fas fa-trophy"></i>
+                    </div>
+                    <h3>Quiz Master</h3>
+                    <p>Score 100% on a quiz</p>
+                    <button class="btn btn-small btn-full claim-btn" disabled>Locked</button>
+                </div>
+            </div>
+            
+            <div style="text-align: center; margin-top: 40px;">
+                <button class="btn btn-outline" id="viewAllAchievementsBtn">
+                    <i class="fas fa-award"></i> View All Achievements
+                </button>
+            </div>
+        </div>
+    </section>
+
+ 
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>DevMaster</h3>
+                    <p>Learn web development from scratch with our interactive platform. Master HTML, CSS, and JavaScript through hands-on practice.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link" id="twitterLink"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-link" id="githubLink"><i class="fab fa-github"></i></a>
+                        <a href="#" class="social-link" id="youtubeLink"><i class="fab fa-youtube"></i></a>
+                        <a href="#" class="social-link" id="discordLink"><i class="fab fa-discord"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="#home"><i class="fas fa-home"></i> Home</a></li>
+                        <li><a href="#path"><i class="fas fa-road"></i> Learning Path</a></li>
+                        <li><a href="#playground"><i class="fas fa-code"></i> Playground</a></li>
+                        <li><a href="#modules"><i class="fas fa-book"></i> Courses</a></li>
+                        <li><a href="#quiz"><i class="fas fa-question-circle"></i> Quiz</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Technologies</h3>
+                    <ul class="footer-links">
+                        <li><a href="#"><i class="fab fa-html5"></i> HTML5</a></li>
+                        <li><a href="#"><i class="fab fa-css3-alt"></i> CSS3</a></li>
+                        <li><a href="#"><i class="fab fa-js"></i> JavaScript</a></li>
+                        <li><a href="#"><i class="fas fa-mobile-alt"></i> Responsive Design</a></li>
+                        <li><a href="#"><i class="fas fa-universal-access"></i> Web Accessibility</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Contact</h3>
+                    <ul class="footer-links">
+                        <li><a href="#" id="contactEmailLink"><i class="fas fa-envelope"></i> hello@devmaster.com</a></li>
+                        <li><a href="#" id="contactWebsiteLink"><i class="fas fa-globe"></i> www.devmaster.com</a></li>
+                        <li><a href="#" id="contactLocationLink"><i class="fas fa-map-marker-alt"></i> 123 Code Street, Dev City</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2023 DevMaster. All rights reserved. | Designed with <i class="fas fa-heart" style="color: var(--danger);"></i> for developers</p>
+            </div>
+        </div>
+    </footer>
+
+    Modals
+    <div class="modal" id="loginModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Login to DevMaster</h3>
+                <button class="close-modal" id="closeLoginModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p>Enter your credentials to access your learning progress and save your work.</p>
+                <div style="margin-top: 20px;">
+                    <div style="margin-bottom: 15px;">
+                        <label style="display: block; margin-bottom: 5px; color: var(--accent);">Email</label>
+                        <input type="email" id="loginEmail" style="width: 100%; padding: 12px; border-radius: var(--radius); background-color: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 215, 0, 0.2); color: white; font-size: 1rem;" placeholder="your@email.com">
+                    </div>
+                    <div style="margin-bottom: 20px;">
+                        <label style="display: block; margin-bottom: 5px; color: var(--accent);">Password</label>
+                        <input type="password" id="loginPassword" style="width: 100%; padding: 12px; border-radius: var(--radius); background-color: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 215, 0, 0.2); color: white; font-size: 1rem;" placeholder="••••••••">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" id="cancelLoginBtn">Cancel</button>
+                <button class="btn" id="confirmLoginBtn">Login</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="achievementsModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>All Achievements</h3>
+                <button class="close-modal" id="closeAchievementsModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p>Complete courses and challenges to unlock these achievements:</p>
+                <div style="margin-top: 20px; max-height: 300px; overflow-y: auto;">
+                    <div style="display: grid; grid-template-columns: 1fr; gap: 15px;">
+                        <div style="display: flex; align-items: center; gap: 15px; padding: 15px; background-color: rgba(255, 215, 0, 0.05); border-radius: var(--radius); border: 1px solid rgba(255, 215, 0, 0.1);">
+                            <div style="color: var(--primary); font-size: 1.5rem;">
+                                <i class="fab fa-html5"></i>
+                            </div>
+                            <div>
+                                <h4 style="color: white; margin-bottom: 5px;">HTML Master</h4>
+                                <p style="color: var(--accent); font-size: 0.9rem;">Complete all HTML lessons with 100% score</p>
+                            </div>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 15px; padding: 15px; background-color: rgba(255, 215, 0, 0.05); border-radius: var(--radius); border: 1px solid rgba(255, 215, 0, 0.1);">
+                            <div style="color: var(--primary); font-size: 1.5rem;">
+                                <i class="fab fa-css3-alt"></i>
+                            </div>
+                            <div>
+                                <h4 style="color: white; margin-bottom: 5px;">CSS Guru</h4>
+                                <p style="color: var(--accent); font-size: 0.9rem;">Create 5 different website layouts</p>
+                            </div>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 15px; padding: 15px; background-color: rgba(255, 215, 0, 0.05); border-radius: var(--radius); border: 1px solid rgba(255, 215, 0, 0.1);">
+                            <div style="color: var(--primary); font-size: 1.5rem;">
+                                <i class="fab fa-js"></i>
+                            </div>
+                            <div>
+                                <h4 style="color: white; margin-bottom: 5px;">JavaScript Ninja</h4>
+                                <p style="color: var(--accent); font-size: 0.9rem;">Write 10 different JavaScript functions</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn" id="closeAchievementsModalBtn">Close</button>
+            </div>
+        </div>
+    </div>
+
+    
+    <div class="notification" id="notification">
+        <div class="notification-icon">
+            <i class="fas fa-check-circle"></i>
+        </div>
+        <div class="notification-content">
+            <h4 id="notificationTitle">Success!</h4>
+            <p id="notificationMessage">Your action was completed successfully.</p>
+        </div>
+    </div>
+    <script src="app.js"></script>
+</html>
